@@ -5,11 +5,12 @@ import androidx.multidex.MultiDexApplication
 import com.ayush.baseapplication.BuildConfig
 
 class App : MultiDexApplication() {
-    private val baseUsrl = BuildConfig.BASE_URL
+    private val baseUrl = BuildConfig.BASE_URL
+    private val apiKey = BuildConfig.API_KEY
 
     private val component by lazy(LazyThreadSafetyMode.NONE) {
         DaggerAppComponent.factory()
-            .create(baseUsrl)
+            .create(baseUrl)
     }
 
     fun getAppComponent(): AppComponent {

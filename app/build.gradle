@@ -16,7 +16,8 @@ android {
         versionName projectVersionName
 
         multiDexEnabled true
-        buildConfigField "String", "BASE_URL", "\"https://ayushBagaria/services/\""
+        buildConfigField "String", "BASE_URL", "\"http://www.omdbapi.com/\""
+        buildConfigField "String", "API_KEY", "\"c62ee1a3\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
