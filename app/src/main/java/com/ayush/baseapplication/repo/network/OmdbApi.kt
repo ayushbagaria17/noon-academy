@@ -1,4 +1,4 @@
-package com.ayush.baseapplication.repo
+package com.ayush.baseapplication.repo.network
 
 import com.ayush.baseapplication.repo.domain.OmdbSearchResponse
 import io.reactivex.Single

@@ -1,11 +1,13 @@
 package com.ayush.baseapplication.repo
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.ayush.baseapplication.repo.db.OmdbDbRepo
 import com.ayush.baseapplication.repo.domain.OmdbItem
 import com.ayush.baseapplication.repo.domain.OmdbSearchResponse
+import com.ayush.baseapplication.repo.network.OmdbService
 import com.ayush.baseapplication.utils.rx.SchedulerProvider
 
 sealed class Response {
@@ -39,12 +41,13 @@ class OmdbRepoImpl(
         return mediator
     }
 
+    @SuppressLint("CheckResult")
     private fun getListFromServer(query: String) {
-        omdbApi.getResuultForQuery(query)
+        omdbApi.getResultForQuery(query)
             .doOnSubscribe { loadingLiveData.postValue(true) }
             .observeOn(schedulerProvider.io())
             .subscribeOn(schedulerProvider.io())
-            .subscribe(this::next, this::error)//these are called from background thread
+            .subscribe(this::next, this::error)
     }
 
     private fun next(response : OmdbSearchResponse) {
