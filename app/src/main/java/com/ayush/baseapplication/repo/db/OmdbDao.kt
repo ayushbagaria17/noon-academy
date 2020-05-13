@@ -1,6 +1,6 @@
 package com.ayush.baseapplication.repo.db
 
-import androidx.paging.DataSource
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,5 +13,5 @@ interface OmdbDao {
     fun insert(posts: List<OmdbItem>)
 
     @Query("SELECT * FROM omdb WHERE title = :title ORDER BY indexInResponse ASC")
-    fun getPosts(title: String): DataSource.Factory<Int, OmdbItem>
+    fun getPosts(title: String): LiveData<List<OmdbItem>>
 }

@@ -10,7 +10,7 @@ class App : MultiDexApplication() {
 
     private val component by lazy(LazyThreadSafetyMode.NONE) {
         DaggerAppComponent.factory()
-            .create(baseUrl)
+            .create(baseUrl, apiKey)
     }
 
     fun getAppComponent(): AppComponent {

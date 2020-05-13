@@ -12,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 
 const val BASE_URL = "BASE_URL"
+const val API_KEY = "API_KEY"
 @Module(includes = [GsonModule::class, HttpModule::class])
 object NetworkModule {
     @Provides

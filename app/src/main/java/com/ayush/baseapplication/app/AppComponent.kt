@@ -1,6 +1,7 @@
 package com.ayush.baseapplication.app
 
 import com.ayush.baseapplication.di.SharedPrefModule
+import com.ayush.baseapplication.network.API_KEY
 import com.ayush.baseapplication.network.BASE_URL
 import com.ayush.baseapplication.network.NetworkModule
 import com.ayush.baseapplication.utils.AppScope
@@ -14,7 +15,8 @@ interface AppComponent {
     @Component.Factory
     interface Factory {
         fun create(
-            @BindsInstance @Named(BASE_URL) baseUrl: String
+            @BindsInstance @Named(BASE_URL) baseUrl: String,
+            @BindsInstance @Named(API_KEY) apiKey: String
         ): AppComponent
     }
 }
