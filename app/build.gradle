@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.ayush.baseapplication"
+        applicationId "com.ayush.noonacademy"
         minSdkVersion projectMinSdkVersion
         targetSdkVersion targetSdkVersion
         versionCode projectVersionCode

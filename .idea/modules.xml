@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AyushBaseApplication.iml" filepath="$PROJECT_DIR$/AyushBaseApplication.iml" group="AyushBaseApplication" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AyushBaseApplication/app" />
+      <module fileurl="file://$PROJECT_DIR$/NoonAcademy.iml" filepath="$PROJECT_DIR$/NoonAcademy.iml" group="NoonAcademy" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="NoonAcademy/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/noon-academy.iml" filepath="$PROJECT_DIR$/.idea/noon-academy.iml" />
     </modules>
   </component>
 </project>
