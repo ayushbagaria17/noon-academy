@@ -45,6 +45,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 
 }
 
@@ -57,4 +60,5 @@ dependencies {
     network.values().forEach { implementation it }
     devLibs.values().forEach{ debugImplementation it }
     externalLibs.values().forEach{ implementation it }
+    testLibs.values().forEach{ testImplementation it}
 }

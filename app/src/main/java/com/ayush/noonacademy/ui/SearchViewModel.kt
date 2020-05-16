@@ -2,6 +2,7 @@ package com.ayush.noonacademy.ui
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,14 +10,17 @@ import com.ayush.noonacademy.base.BaseViewModel
 import com.ayush.noonacademy.repo.OmdbRepo
 import com.ayush.noonacademy.repo.Response
 import com.ayush.noonacademy.repo.domain.OmdbItem
+import com.ayush.noonacademy.utils.rx.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-class SearchViewModel(private val omdbRepo: OmdbRepo) : BaseViewModel() {
-    val searchSubject = PublishSubject.create<String>()
-    private var profileResult: LiveData<Response> = omdbRepo.runQuery("")
-    private var listOfItems = MutableLiveData<List<OmdbItem>>()
+class SearchViewModel(private val omdbRepo: OmdbRepo,
+                      private val schedulerProvider: SchedulerProvider
+) : BaseViewModel() {
+    @VisibleForTesting val searchSubject = PublishSubject.create<String>()
+    @VisibleForTesting var profileResult: LiveData<Response> = omdbRepo.runQuery("")
+    @VisibleForTesting var listOfItems = MutableLiveData<List<OmdbItem>>()
     val isEmptyViewVisible = ObservableInt(View.GONE)
     val isListVisible = ObservableInt(View.GONE)
 
@@ -33,7 +37,7 @@ class SearchViewModel(private val omdbRepo: OmdbRepo) : BaseViewModel() {
         searchSubject
             .debounce(500, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.ui())
             .subscribe {
                 isListVisible.set(View.GONE)
                 isEmptyViewVisible.set(View.GONE)

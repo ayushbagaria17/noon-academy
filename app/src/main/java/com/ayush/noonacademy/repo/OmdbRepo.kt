@@ -1,6 +1,7 @@
 package com.ayush.noonacademy.repo
 
 import android.annotation.SuppressLint
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,15 +25,15 @@ class OmdbRepoImpl(
 ) : OmdbRepo {
 
     private val mediator = MediatorLiveData<Response>()
-    private val errorLiveData = MutableLiveData<String>()
-    private val loadingLiveData = MutableLiveData<Boolean>()
-    val dbOserver: Observer<List<OmdbItem>> =
+    @VisibleForTesting val errorLiveData = MutableLiveData<String>()
+    @VisibleForTesting val loadingLiveData = MutableLiveData<Boolean>()
+    private val dbOserver: Observer<List<OmdbItem>> =
         Observer<List<OmdbItem>> { list ->
             if (list != null && list.isNotEmpty()) {
                 mediator.value = Response.Success(list)
             }
         }
-    val errorObserver: Observer<String> =
+    private val errorObserver: Observer<String> =
         Observer { error ->
             mediator.value = Response.Error(error)
         }
@@ -44,6 +45,7 @@ class OmdbRepoImpl(
 
 
     override fun runQuery(query: String): LiveData<Response> {
+        loadingLiveData.postValue( true)
         getListFromServer(query)
         val databaseSource = dbRepo.searchQuery(query)
         mediator.addSource(databaseSource, dbOserver)
@@ -53,23 +55,23 @@ class OmdbRepoImpl(
     }
 
     @SuppressLint("CheckResult")
-    private fun getListFromServer(query: String) {
+    @VisibleForTesting
+    fun getListFromServer(query: String) {
         omdbApi.getResultForQuery(query)
-            .doOnSubscribe {
-                loadingLiveData.postValue(true)
-            }
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.io())
             .subscribe(this::next, this::error)
     }
 
-    private fun next(response : OmdbSearchResponse) {
-        loadingLiveData.postValue(false)
+    @VisibleForTesting
+    fun next(response : OmdbSearchResponse) {
+        loadingLiveData.postValue( false)
         dbRepo.insertResultIntoDb(response)
     }
 
-    private fun error(error: Throwable) {
-        loadingLiveData.postValue(false)
+    @VisibleForTesting
+    fun error(error: Throwable) {
+        loadingLiveData.postValue( false)
         errorLiveData.postValue(error.message ?: "network_error")
     }
 

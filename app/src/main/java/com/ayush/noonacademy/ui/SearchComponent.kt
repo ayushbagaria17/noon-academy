@@ -32,5 +32,5 @@ object SearchModule {
 
     @ActivityScope
     @Provides
-    fun searchViewModel(omdbRepo: OmdbRepo): SearchViewModel = SearchViewModel(omdbRepo)
+    fun searchViewModel(omdbRepo: OmdbRepo, schedulerProvider: SchedulerProvider): SearchViewModel = SearchViewModel(omdbRepo, schedulerProvider)
 }
