@@ -48,7 +48,8 @@
             android:layout_marginTop="8dp"
             android:onTextChanged="@{vm.searchTextChanged}"
             android:singleLine="true"
-            android:maxLength="80"/>
+            android:maxLength="80"
+            android:text="Friend"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

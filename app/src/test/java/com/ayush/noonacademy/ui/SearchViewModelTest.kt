@@ -7,7 +7,6 @@ import com.ayush.TestSchedulerProvider
 import com.ayush.noonacademy.repo.OmdbRepo
 import com.ayush.noonacademy.repo.Response
 import com.ayush.noonacademy.repo.domain.OmdbItem
-import com.ayush.noonacademy.repo.domain.OmdbSearchResponse
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Assert
 import org.junit.Before
@@ -15,7 +14,6 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Rule
-import java.util.concurrent.TimeUnit
 
 class SearchViewModelTest {
     @get:Rule
@@ -41,7 +39,7 @@ class SearchViewModelTest {
     fun observeQueryChanges() {
         assertEquals(View.GONE, viewModel.isEmptyViewVisible.get())
         assertEquals(View.GONE, viewModel.isListVisible.get())
-        verify(omdbRepo, times(1)).runQuery("")
+        verify(omdbRepo, times(1)).runQuery("Friend")
     }
 
     @Test

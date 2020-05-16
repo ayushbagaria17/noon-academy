@@ -19,7 +19,7 @@ class SearchViewModel(private val omdbRepo: OmdbRepo,
                       private val schedulerProvider: SchedulerProvider
 ) : BaseViewModel() {
     @VisibleForTesting val searchSubject = PublishSubject.create<String>()
-    @VisibleForTesting var profileResult: LiveData<Response> = omdbRepo.runQuery("")
+    @VisibleForTesting var profileResult: LiveData<Response> = omdbRepo.runQuery("Friend")
     @VisibleForTesting var listOfItems = MutableLiveData<List<OmdbItem>>()
     val isEmptyViewVisible = ObservableInt(View.GONE)
     val isListVisible = ObservableInt(View.GONE)
@@ -30,7 +30,6 @@ class SearchViewModel(private val omdbRepo: OmdbRepo,
 
     fun responseLiveData(): LiveData<Response> = profileResult
     fun listLiveData(): LiveData<List<OmdbItem>> = listOfItems
-
 
     @SuppressLint("CheckResult")
     private fun observeQueryChanges() {
