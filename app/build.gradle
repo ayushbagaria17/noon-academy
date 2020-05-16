@@ -56,4 +56,5 @@ dependencies {
     rx.values().forEach { implementation it }
     network.values().forEach { implementation it }
     devLibs.values().forEach{ debugImplementation it }
+    externalLibs.values().forEach{ implementation it }
 }

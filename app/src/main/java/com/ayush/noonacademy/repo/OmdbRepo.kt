@@ -29,17 +29,17 @@ class OmdbRepoImpl(
     val dbOserver: Observer<List<OmdbItem>> =
         Observer<List<OmdbItem>> { list ->
             if (list != null && list.isNotEmpty()) {
-                mediator.postValue(Response.Success(list))
+                mediator.value = Response.Success(list)
             }
         }
     val errorObserver: Observer<String> =
         Observer { error ->
-            mediator.postValue(Response.Error(error))
+            mediator.value = Response.Error(error)
         }
 
     private val loadingObserver: Observer<Boolean> =
         Observer { isLoading ->
-            mediator.postValue(Response.Loading(isLoading))
+            mediator.value = Response.Loading(isLoading)
         }
 
 

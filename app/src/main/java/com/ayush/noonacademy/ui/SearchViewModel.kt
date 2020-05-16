@@ -27,6 +27,7 @@ class SearchViewModel(private val omdbRepo: OmdbRepo) : BaseViewModel() {
     fun responseLiveData(): LiveData<Response> = profileResult
     fun listLiveData(): LiveData<List<OmdbItem>> = listOfItems
 
+
     @SuppressLint("CheckResult")
     private fun observeQueryChanges() {
         searchSubject
@@ -55,12 +56,13 @@ class SearchViewModel(private val omdbRepo: OmdbRepo) : BaseViewModel() {
         } else if (response is Response.Error && isEmptyViewVisible.get() == View.VISIBLE) {
             isListVisible.set(View.GONE)
             isEmptyViewVisible.set(View.GONE)
+            listOfItems.value = emptyList()
         } else if (response is Response.Loading && response.isLoading && isListVisible.get() != View.VISIBLE) {
             isEmptyViewVisible.set(View.VISIBLE)
+            listOfItems.value = emptyList()
         } else if (response is Response.Loading && !response.isLoading) {
             isEmptyViewVisible.set(View.GONE)
         }
-        listOfItems.value = emptyList()
     }
 
 
